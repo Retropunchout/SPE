@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SPE Learner</title>
+    <style>
+    body {background-color: #F3F3EE;}
+    h1   {color: #595758;}
+    h2   {color: #3B3B3B;}
+    </style>
+</head>
+<body>
+<h1>SPE Learner</h1>
+
+<button type="button" id="IA1971Question">Immigration Act 1971 Question</button>
+<button type="button" id="CEMAQuestion">CEMA Act 1979 Question</button>
+<h2 id="p1">Press a question set to start</h2>
+<br>
+<button type="button" id="select1">Select1</button>
+<button type="button" id="select2">Select2</button>
+<button type="button" id="select3">Select3</button>
+
+<h2 id="congrats">Waiting</h2>
+<h2 id="p2">0</h2>
+
+
+<script>
+  //let newIA1971Q = document.getElementById("IA1971Question");
+  //let newCEMAQ = document.getElementById("CEMAQuestion");
+
+  let info = document.getElementById("p1");
+  let congrats = document.getElementById("congrats")
+  let sel1 = document.getElementById("select1");
+  let sel2 = document.getElementById("select2");
+  let sel3 = document.getElementById("select3");
+
+  let point_display = document.getElementById("p2");
+
+  let but_list = [select1,select2,select3];
+  let rand_q = "";
+  let question_set;
+  let points = 0;
+
+  function setQuestionSet(questions){
+    question_set = questions;
+    newQuestionClick()
+  }
+
+  function newQuestionClick() {
+    //let chosen_list = chosen_list;
+    //get question
+    chosen_list = question_set;
+
+    rand_q = chosen_list[Math.floor(Math.random() * chosen_list.length)];
+    //set question text
+    info.textContent = rand_q[0];
+
+    //set both buttons
+    let sel1_val = chosen_list[Math.floor(Math.random() * chosen_list.length)];
+    sel1.value = sel1_val;
+    sel1.textContent = sel1_val[1];
+
+    let sel2_val = chosen_list[Math.floor(Math.random() * chosen_list.length)];
+    sel2.value = sel2_val;
+    sel2.textContent = sel2_val[1];
+
+    let sel3_val = chosen_list[Math.floor(Math.random() * chosen_list.length)];
+    sel3.value = sel3_val;
+    sel3.textContent = sel3_val[1];
+
+    //set one correct at random
+    let ran_but = but_list[Math.floor(Math.random() * but_list.length)];
+    ran_but.value = rand_q;
+    ran_but.textContent = rand_q[1]
+  }
+
+  function selectClick(sel_but) {
+    if (String(sel_but.value) === String(rand_q)) {
+      congrats.textContent = "well done!";
+      ++points;
+    } else {
+      congrats.textContent = "Nope - " + String(rand_q);
+      --points;
+    }
+    point_display.textContent = "points: " +points;
+    newQuestionClick()
+  }
+
+  document.getElementById("IA1971Question").onclick = function() {setQuestionSet(IA1971list)};
+  document.getElementById("CEMAQuestion").onclick = function() {setQuestionSet(CEMA1979list)};
+
+  document.getElementById("select1").onclick = function() {selectClick(select1)};
+  document.getElementById("select2").onclick = function() {selectClick(select2)};
+  document.getElementById("select3").onclick = function() {selectClick(select3)};
+
+
+
+  let IA1971list;
+  IA1971list = [
+    [`Immigration Act 1971 - s24`,`Illegal Entry`],
+    [`Immigration Act 1971 - s24A`,`Use of Deception`],
+    [`Immigration Act 1971 - s24B`,`Illegal Working`],
+    [`Immigration Act 1971 - s25`,`Assisting Unlawful Immigration to Member State`],
+    [`Immigration Act 1971 - s25A`,`Assisting Asylum-Seeker to enter the UK`],
+    [`Immigration Act 1971 - s25B`,`Assisting Entry to the UK in breach of Deportation order`],
+    [`Immigration Act 1971 - s28A`,`Arrest`],
+    [`Immigration Act 1971 - s28AA`,`Arrest with Application`],
+    [`Immigration Act 1971 - s28B`,`Search & Arrest by Warrant`],
+    [`Immigration Act 1971 - s28C`,`Search & Arrest without Warrant`],
+    [`Immigration Act 1971 - s28CA`,`Entry to Arrest - Business Premises`],
+    [`Immigration Act 1971 - s28D`,`Entry & Search of Premises`],
+    [`Immigration Act 1971 - s28E`,`Entry & Search of Premises following an arrest (for evidence)`],
+    [`Immigration Act 1971 - s28F`,`Entry & Search of Premises (for S25 offences)`],
+    [`Immigration Act 1971 - s28FA`,`Search for personnel records`],
+    [`Immigration Act 1971 - s28FB`,`Search for personnel records with a warrant`],
+    [`Immigration Act 1971 - s28G`,`Search of arrested person`],
+    [`Immigration Act 1971 - s28H`,`Searching persons in Police Custody`]
+  ];
+
+  let CEMA1979list;
+  CEMA1979list = [
+    [`CEMA - s27`,`Officers' Power of Boarding`],
+    [`CEMA - s28`,`Officers' Power of Access`],
+    [`CEMA - s33`,`Power to inspect Aircraft, Aerodromes, Records etc.`],
+    [`CEMA - s34`,`Power to Prevent Flight of Aircraft`],
+    [`CEMA - s49`,`Forfeiture of Goods Improperly imported`]
+  ];
+
+</script>
+</body>
+</html>
